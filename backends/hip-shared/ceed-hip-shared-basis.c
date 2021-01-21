@@ -32,6 +32,15 @@ inline __device__ void add(CeedScalar *r_V, const CeedScalar *r_U) {
 }
 
 //------------------------------------------------------------------------------
+// Load matrices for basis actions
+//------------------------------------------------------------------------------
+inline __device__ void loadMatrix(const CeedScalar* d_B, CeedScalar* B) {
+  CeedInt tid = threadIdx.x + threadIdx.y*blockDim.x + threadIdx.z*blockDim.y*blockDim.x;
+  for (CeedInt i = tid; i < P1D*Q1D; i += blockDim.x*blockDim.y*blockDim.z)
+    B[i] = d_B[i];
+}
+
+//------------------------------------------------------------------------------
 // 1D
 //------------------------------------------------------------------------------
 
@@ -704,10 +713,15 @@ __device__ void weight3d(const CeedInt nelem, const CeedScalar *qweight1d,
 //------------------------------------------------------------------------------
 extern "C" __launch_bounds__(INTERP_BLKSIZE) __global__ void interp(
                                   const CeedInt nelem, const int transpose,
-                                  const CeedScalar *c_B,
+                                  CeedScalar *d_interp1d,
                                   const CeedScalar *__restrict__ d_U,
                                   CeedScalar *__restrict__ d_V) {
+
   HIP_DYNAMIC_SHARED( double, slice)
+  // load interp1d into shared memory
+  __shared__ double c_B[P1D*Q1D];
+  loadMatrix(d_interp1d, c_B); 
+
   if (BASIS_DIM == 1) {
     interp1d(nelem, transpose, c_B, d_U, d_V, slice);
   } else if (BASIS_DIM == 2) {
@@ -722,10 +736,16 @@ extern "C" __launch_bounds__(INTERP_BLKSIZE) __global__ void interp(
 //------------------------------------------------------------------------------
 extern "C" __launch_bounds__(GRAD_BLKSIZE) __global__ void grad(const CeedInt nelem,
                                 const int transpose,
-                                const CeedScalar *c_B, const CeedScalar *c_G,
+                                CeedScalar *d_interp1d, CeedScalar *d_grad1d,
                                 const CeedScalar *__restrict__ d_U,
                                 CeedScalar *__restrict__ d_V) {
   HIP_DYNAMIC_SHARED( double, slice)
+  // load interp1d and grad1d into shared memory
+  __shared__ double c_B[P1D*Q1D];
+  loadMatrix(d_interp1d, c_B); 
+  __shared__ double c_G[P1D*Q1D];
+  loadMatrix(d_grad1d, c_G); 
+
   if (BASIS_DIM == 1) {
     grad1d(nelem, transpose, c_B, c_G, d_U, d_V, slice);
   } else if (BASIS_DIM == 2) {
@@ -866,9 +886,8 @@ int CeedBasisApplyTensor_Hip_shared(CeedBasis basis, const CeedInt nelem,
     ierr = CeedBasisGetNumNodes1D(basis, &P1d); CeedChk(ierr);
     ierr = CeedBasisGetNumQuadraturePoints1D(basis, &Q1d); CeedChk(ierr);
     CeedInt thread1d = CeedIntMax(Q1d, P1d);
-    ierr = CeedHipInitInterp(data->d_interp1d, P1d, Q1d, &data->c_B);
     CeedChk(ierr);
-    void *interpargs[] = {(void *) &nelem, (void *) &transpose, &data->c_B,
+    void *interpargs[] = {(void *) &nelem, (void *) &transpose, &data->d_interp1d,
                           &d_u, &d_v
                          };
     if (dim == 1) {
@@ -905,11 +924,9 @@ int CeedBasisApplyTensor_Hip_shared(CeedBasis basis, const CeedInt nelem,
     ierr = CeedBasisGetNumNodes1D(basis, &P1d); CeedChk(ierr);
     ierr = CeedBasisGetNumQuadraturePoints1D(basis, &Q1d); CeedChk(ierr);
     CeedInt thread1d = CeedIntMax(Q1d, P1d);
-    ierr = CeedHipInitInterpGrad(data->d_interp1d, data->d_grad1d, P1d,
-                                 Q1d, &data->c_B, &data->c_G);
     CeedChk(ierr);
-    void *gradargs[] = {(void *) &nelem, (void *) &transpose, &data->c_B,
-                        &data->c_G, &d_u, &d_v
+    void *gradargs[] = {(void *) &nelem, (void *) &transpose, &data->d_interp1d,
+                        &data->d_grad1d, &d_u, &d_v
                        };
     if (dim == 1) {
       CeedInt elemsPerBlock = 64*thread1d > 256? 256/thread1d : 64;
