@@ -124,7 +124,7 @@ struct AppCtx_private {
   PetscInt      numIncrements;                        // Number of steps
   PetscInt      bcClampCount;
   PetscInt      bcClampFaces[16];
-  PetscScalar   bcClampMax[16][7];
+  PetscScalar   bcClampMax[16][11];
   PetscInt      bcTractionCount;
   PetscInt      bcTractionFaces[16];
   PetscScalar   bcTractionVector[16][3];
