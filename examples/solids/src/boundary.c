@@ -60,15 +60,49 @@ PetscErrorCode BCClamp(PetscInt dim, PetscReal loadIncrement,
 
   PetscFunctionBeginUser;
 
+              //For translation
   PetscScalar lx = clampMax[0]*loadIncrement, ly = clampMax[1]*loadIncrement,
               lz = clampMax[2]*loadIncrement,
-              theta = clampMax[6]*M_PI*loadIncrement,
+              //For rotation
+              theta = clampMax[6]*M_PI*loadIncrement,   //Radians
               kx = clampMax[3], ky = clampMax[4], kz = clampMax[5];
   PetscScalar c = cos(theta), s = sin(theta);
+              //For Givens 
+  PetscScalar thetaG = clampMax[10]*M_PI*loadIncrement, //Radians
+              gx = clampMax[7], gy = clampMax[8], gz = clampMax[9];
+  PetscScalar cg = cos(thetaG), sg = sin(thetaG);
+              //Store computed Translation and Rotation to be added to Givens values
+  PetscScalar trx, try, trz;
 
-  u[0] = lx + s*(-kz*y + ky*z) + (1-c)*(-(ky*ky+kz*kz)*x + kx*ky*y + kx*kz*z);
-  u[1] = ly + s*(kz*x + -kx*z) + (1-c)*(kx*ky*x + -(kx*kx+kz*kz)*y + ky*kz*z);
-  u[2] = lz + s*(-ky*x + kx*y) + (1-c)*(kx*kz*x + ky*kz*y + -(kx*kx+ky*ky)*z);
+  //  Translate                   Rotate                                       
+  trx = lx  +  s*(-kz*y + ky*z) + (1-c)*(-ky*ky+kz*kz*x + kx*ky*y + kx*kz*z) ;
+  try = ly  +  s*(kz*x + -kx*z) + (1-c)*(kx*ky*x - (kx*kx+kz*kz)*y + ky*kz*z) ;
+  trz = lz  +  s*(-ky*x + kx*y) + (1-c)*(kx*kz*x + ky*kz*y - (kx*kx+ky*ky)*z);
+
+  //Given(thetaG) in X direction
+  if (gx){
+     u[0] = trx + x;
+     u[1] = try + cg*y - sg*z;
+     u[2] = trz + sg*y + cg*z;
+  }
+  //Given(thetaG) in Y direction
+  else if (gy){
+     u[0] = trx + cg*x + sg*z;
+     u[1] = try + y;
+     u[2] = trz - sg*x + cg*z;
+  }
+  //Given(thetaG) in Z direction
+  else if (gz){
+     u[0] = trx + cg*x - sg*y;
+     u[1] = try + sg*x + cg*y;
+     u[2] = trz + z;
+  }
+  else{
+     u[0] = trx;
+     u[1] = try;
+     u[2] = trz;
+  }
+
 
   PetscFunctionReturn(0);
 };
