@@ -1,0 +1,255 @@
+==2184849== Memcheck, a memory error detector
+==2184849== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2184849== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==2184849== Command: ./elasticity -problem hyperFS -mesh ./meshes/cube_1e_6ss_us.exo -degree 2 -nu 0.3 -E 6.9e10 -bc_clamp 999,998,997,996,995,994 -bc_clamp_999_givens 1,0,0,0.174533 -bc_clamp_998_givens 1,0,0,0.174533 -bc_clamp_997_givens 1,0,0,0.174533 -bc_clamp_996_givens 1,0,0,0.174533 -bc_clamp_995_givens 1,0,0,0.174533 -bc_clamp_994_givens 1,0,0,0.174533 -num_steps 1 -snes_linesearch_type cp -snes_rtol 1e-7
+==2184849== 
+==2184849== Warning: set address range perms: large range [0x13ac6000, 0x3db4e000) (defined)
+==2184849== Invalid read of size 8
+==2184849==    at 0xBCCCB3C: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xBCB5B43: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xBCB767D: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC92E5F7: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC9341F6: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC92843F: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC9F8727: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC92B8D3: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC927EF7: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC9271C1: bli_gemm_ex (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC9989C9: dgemm_ (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xB7BBEB6: dgetrf2_ (in /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0)
+==2184849==  Address 0x480afac0 is 48 bytes inside a block of size 224 free'd
+==2184849==    at 0x48399AB: free (vg_replace_malloc.c:538)
+==2184849==    by 0x4A0723D: PetscFreeAlign (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x535EB47: PetscFESetUp_Basic (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x535095D: PetscFESetUp (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x118CD8: PetscFECreateByDegree (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==    by 0x1197C4: SetupDMByDegree (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==    by 0x10E9BC: main (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==  Block was alloc'd at
+==2184849==    at 0x483B0F8: memalign (vg_replace_malloc.c:907)
+==2184849==    by 0x4A072AA: PetscMallocAlign (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x4A07C75: PetscMallocA (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x535EA19: PetscFESetUp_Basic (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x535095D: PetscFESetUp (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x118CD8: PetscFECreateByDegree (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==    by 0x1197C4: SetupDMByDegree (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==    by 0x10E9BC: main (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849== 
+==2184849== Invalid read of size 8
+==2184849==    at 0xBCCCB64: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xBCB5B43: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xBCB767D: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC92E5F7: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC9341F6: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC92843F: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC9F8727: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC92B8D3: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC927EF7: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC9271C1: bli_gemm_ex (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC9989C9: dgemm_ (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xB7BBEB6: dgetrf2_ (in /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0)
+==2184849==  Address 0x480afac8 is 56 bytes inside a block of size 224 free'd
+==2184849==    at 0x48399AB: free (vg_replace_malloc.c:538)
+==2184849==    by 0x4A0723D: PetscFreeAlign (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x535EB47: PetscFESetUp_Basic (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x535095D: PetscFESetUp (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x118CD8: PetscFECreateByDegree (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==    by 0x1197C4: SetupDMByDegree (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==    by 0x10E9BC: main (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==  Block was alloc'd at
+==2184849==    at 0x483B0F8: memalign (vg_replace_malloc.c:907)
+==2184849==    by 0x4A072AA: PetscMallocAlign (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x4A07C75: PetscMallocA (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x535EA19: PetscFESetUp_Basic (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x535095D: PetscFESetUp (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x118CD8: PetscFECreateByDegree (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==    by 0x1197C4: SetupDMByDegree (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==    by 0x10E9BC: main (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849== 
+==2184849== Invalid read of size 8
+==2184849==    at 0xBCCCB9B: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xBCB5B43: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xBCB767D: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC92E5F7: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC9341F6: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC92843F: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC9F8727: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC92B8D3: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC927EF7: ??? (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC9271C1: bli_gemm_ex (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xC9989C9: dgemm_ (in /usr/lib/x86_64-linux-gnu/blis-serial/libblis.so.3)
+==2184849==    by 0xB7BBEB6: dgetrf2_ (in /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0)
+==2184849==  Address 0x480afad0 is 64 bytes inside a block of size 224 free'd
+==2184849==    at 0x48399AB: free (vg_replace_malloc.c:538)
+==2184849==    by 0x4A0723D: PetscFreeAlign (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x535EB47: PetscFESetUp_Basic (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x535095D: PetscFESetUp (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x118CD8: PetscFECreateByDegree (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==    by 0x1197C4: SetupDMByDegree (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==    by 0x10E9BC: main (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==  Block was alloc'd at
+==2184849==    at 0x483B0F8: memalign (vg_replace_malloc.c:907)
+==2184849==    by 0x4A072AA: PetscMallocAlign (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x4A07C75: PetscMallocA (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x535EA19: PetscFESetUp_Basic (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x535095D: PetscFESetUp (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x118CD8: PetscFECreateByDegree (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==    by 0x1197C4: SetupDMByDegree (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==    by 0x10E9BC: main (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849== 
+
+-- Elasticity Example - libCEED + PETSc --
+  libCEED:
+    libCEED Backend                    : /cpu/self/avx/blocked
+    libCEED Backend MemType            : host
+  PETSc:
+    PETSc Vec Type                     : seq
+  Problem:
+    Problem Name                       : Hyper elasticity finite strain
+    Forcing Function                   : None
+  Mesh:
+    File                               : ./meshes/cube_1e_6ss_us.exo
+    Number of 1D Basis Nodes (p)       : 3
+    Number of 1D Quadrature Points (q) : 3
+    Global nodes                       : 6
+    Owned nodes                        : 6
+    DoF per node                       : 3
+  Multigrid:
+    Type                               : P-multigrid, logarithmic coarsening
+    Number of Levels                   : 2
+    Level 0 (coarse):
+      Number of 1D Basis Nodes (p)     : 2
+      Global Nodes                     : 0
+      Owned Nodes                      : 0
+    Level 1 (fine):
+      Number of 1D Basis Nodes (p)     : 3
+      Global Nodes                     : 6
+      Owned Nodes                      : 6
+u[0][1][2] = 0. -0.256022 -0.156374 
+u[0][1][2] = -1. -1.37465 0.332159 
+u[0][1][2] = -1. 0.166079 0.687326 
+u[0][1][2] = 1. 0.166079 0.687326 
+u[0][1][2] = 1. -1.37465 0.332159 
+u[0][1][2] = -1. -0.332159 -1.37465 
+u[0][1][2] = -1. 0.516645 -0.270329 
+u[0][1][2] = 1. 0.516645 -0.270329 
+u[0][1][2] = 1. -0.332159 -1.37465 
+u[0][1][2] = 0. -0.604287 0.509743 
+u[0][1][2] = 0. 0.0922433 -0.822491 
+u[0][1][2] = -1. -0.256022 -0.156374 
+u[0][1][2] = 1. -0.256022 -0.156374 
+u[0][1][2] = 0. 0.341362 0.208499 
+u[0][1][2] = 0. -0.853406 -0.521247 
+u[0][1][2] = 0. -1.37465 0.332159 
+u[0][1][2] = 1. -0.604287 0.509743 
+u[0][1][2] = 0. 0.166079 0.687326 
+u[0][1][2] = -1. -0.604287 0.509743 
+u[0][1][2] = -1. 0.0922433 -0.822491 
+u[0][1][2] = 0. 0.516645 -0.270329 
+u[0][1][2] = 1. 0.0922433 -0.822491 
+u[0][1][2] = 0. -0.332159 -1.37465 
+u[0][1][2] = -1. 0.341362 0.208499 
+u[0][1][2] = -1. -0.853406 -0.521247 
+u[0][1][2] = 1. -0.853406 -0.521247 
+u[0][1][2] = 1. 0.341362 0.208499 
+u[0][1][2] = 0. -0.256022 -0.156374 
+u[0][1][2] = -1. -1.37465 0.332159 
+u[0][1][2] = -1. 0.166079 0.687326 
+u[0][1][2] = 1. 0.166079 0.687326 
+u[0][1][2] = 1. -1.37465 0.332159 
+u[0][1][2] = -1. -0.332159 -1.37465 
+u[0][1][2] = -1. 0.516645 -0.270329 
+u[0][1][2] = 1. 0.516645 -0.270329 
+u[0][1][2] = 1. -0.332159 -1.37465 
+u[0][1][2] = 0. -0.604287 0.509743 
+u[0][1][2] = 0. 0.0922433 -0.822491 
+u[0][1][2] = -1. -0.256022 -0.156374 
+u[0][1][2] = 1. -0.256022 -0.156374 
+u[0][1][2] = 0. 0.341362 0.208499 
+u[0][1][2] = 0. -0.853406 -0.521247 
+u[0][1][2] = 0. -1.37465 0.332159 
+u[0][1][2] = 1. -0.604287 0.509743 
+u[0][1][2] = 0. 0.166079 0.687326 
+u[0][1][2] = -1. -0.604287 0.509743 
+u[0][1][2] = -1. 0.0922433 -0.822491 
+u[0][1][2] = 0. 0.516645 -0.270329 
+u[0][1][2] = 1. 0.0922433 -0.822491 
+u[0][1][2] = 0. -0.332159 -1.37465 
+u[0][1][2] = -1. 0.341362 0.208499 
+u[0][1][2] = -1. -0.853406 -0.521247 
+u[0][1][2] = 1. -0.853406 -0.521247 
+u[0][1][2] = 1. 0.341362 0.208499 
+u[0][1][2] = 0. -0.256022 -0.156374 
+u[0][1][2] = -1. -1.37465 0.332159 
+u[0][1][2] = -1. 0.166079 0.687326 
+u[0][1][2] = 1. 0.166079 0.687326 
+u[0][1][2] = 1. -1.37465 0.332159 
+u[0][1][2] = -1. -0.332159 -1.37465 
+u[0][1][2] = -1. 0.516645 -0.270329 
+u[0][1][2] = 1. 0.516645 -0.270329 
+u[0][1][2] = 1. -0.332159 -1.37465 
+u[0][1][2] = 0. -0.604287 0.509743 
+u[0][1][2] = 0. 0.0922433 -0.822491 
+u[0][1][2] = -1. -0.256022 -0.156374 
+u[0][1][2] = 1. -0.256022 -0.156374 
+u[0][1][2] = 0. 0.341362 0.208499 
+u[0][1][2] = 0. -0.853406 -0.521247 
+u[0][1][2] = 0. -1.37465 0.332159 
+u[0][1][2] = 1. -0.604287 0.509743 
+u[0][1][2] = 0. 0.166079 0.687326 
+u[0][1][2] = -1. -0.604287 0.509743 
+u[0][1][2] = -1. 0.0922433 -0.822491 
+u[0][1][2] = 0. 0.516645 -0.270329 
+u[0][1][2] = 1. 0.0922433 -0.822491 
+u[0][1][2] = 0. -0.332159 -1.37465 
+u[0][1][2] = -1. 0.341362 0.208499 
+u[0][1][2] = -1. -0.853406 -0.521247 
+u[0][1][2] = 1. -0.853406 -0.521247 
+u[0][1][2] = 1. 0.341362 0.208499 
+==2184849== Invalid read of size 4
+==2184849==    at 0x53219E1: MINPACKslo (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x531DCCB: MatColoringApply_SL (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x531C442: MatColoringApply (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x59B218F: SNESComputeJacobianDefaultColor (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x11799C: FormJacobian (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==    by 0x59A212A: SNESComputeJacobian (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x59D1B9D: SNESSolve_NEWTONLS (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x59ABA18: SNESSolve (in /projects/jed/petsc/mpich-O/lib/libpetsc.so.3.014.2)
+==2184849==    by 0x111DC5: main (in /home/arash/arash/libCEED/examples/solids/elasticity)
+==2184849==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==2184849== 
+[0]PETSC ERROR: ------------------------------------------------------------------------
+[0]PETSC ERROR: Caught signal number 11 SEGV: Segmentation Violation, probably memory access out of range
+[0]PETSC ERROR: Try option -start_in_debugger or -on_error_attach_debugger
+[0]PETSC ERROR: or see https://www.mcs.anl.gov/petsc/documentation/faq.html#valgrind
+[0]PETSC ERROR: or try http://valgrind.org on GNU/linux and Apple Mac OS X to find memory corruption errors
+[0]PETSC ERROR: configure using --with-debugging=yes, recompile, link, and run 
+[0]PETSC ERROR: to get more information on the crash.
+[0]PETSC ERROR: --------------------- Error Message --------------------------------------------------------------
+[0]PETSC ERROR: Signal received
+[0]PETSC ERROR: See https://www.mcs.anl.gov/petsc/documentation/faq.html for trouble shooting.
+[0]PETSC ERROR: Petsc Development GIT revision: v3.14.2-502-g2124b12910  GIT Date: 2021-01-09 09:09:52 -0700
+[0]PETSC ERROR: ./elasticity on a mpich-O named noether by arash Fri Jan 29 08:32:03 2021
+[0]PETSC ERROR: Configure options --download-ctetgen --download-exodusii --download-hdf5 --download-hypre --download-kokkos --download-kokkos-commit=origin/develop --download-kokkos-kernels --download-kokkos-kernels-commit=origin/develop --with-cxx-dialect=C++14 --download-med --download-metis --download-ml --download-mumps --download-netcdf --download-parmetis --download-pnetcdf --download-scalapack --download-suitesparse --download-sundials --download-superlu --download-superlu_dist --download-triangle --with-debugging=0 --with-hip --with-kokkos-hip-arch=VEGA906 --with-zlib COPTFLAGS="-O3 -ffp-contract=fast -march=native" CXXOPTFLAGS="-O3 -ffp-contract=fast -march=native" HIPOPTFLAGS="-O3 -ffp-contract=fast -march=native --amdgpu-target=gfx906" PETSC_ARCH=mpich-O
+[0]PETSC ERROR: #1 User provided function() line 0 in  unknown file
+[0]PETSC ERROR: Run with -malloc_debug to check if memory corruption is causing the crash.
+application called MPI_Abort(MPI_COMM_WORLD, 50176059) - process 0
+==2184849== Warning: invalid file descriptor -1 in syscall write()
+[unset]: write_line error; fd=-1 buf=:cmd=abort exitcode=50176059
+:
+system msg for write_line failure : Bad file descriptor
+==2184849== 
+==2184849== HEAP SUMMARY:
+==2184849==     in use at exit: 44,260,697 bytes in 63,596 blocks
+==2184849==   total heap usage: 127,063 allocs, 63,467 frees, 60,167,722 bytes allocated
+==2184849== 
+==2184849== LEAK SUMMARY:
+==2184849==    definitely lost: 271,168 bytes in 4,237 blocks
+==2184849==    indirectly lost: 269,665 bytes in 4,237 blocks
+==2184849==      possibly lost: 17,816,074 bytes in 32 blocks
+==2184849==    still reachable: 25,903,790 bytes in 55,090 blocks
+==2184849==         suppressed: 0 bytes in 0 blocks
+==2184849== Rerun with --leak-check=full to see details of leaked memory
+==2184849== 
+==2184849== For lists of detected and suppressed errors, rerun with: -s
+==2184849== ERROR SUMMARY: 6 errors from 4 contexts (suppressed: 0 from 0)
