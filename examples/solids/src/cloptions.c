@@ -95,7 +95,7 @@ PetscErrorCode ProcessCommandLineOptions(MPI_Comm comm, AppCtx appCtx) {
   for (PetscInt i = 0; i < appCtx->bcClampCount; i++) {
     // Translation vector
     char optionName[25];
-    for (PetscInt j = 0; j < 7; j++)
+    for (PetscInt j = 0; j < 11; j++)
       appCtx->bcClampMax[i][j] = 0.;
 
     snprintf(optionName, sizeof optionName, "-bc_clamp_%d_translate",
@@ -123,6 +123,15 @@ PetscErrorCode ProcessCommandLineOptions(MPI_Comm comm, AppCtx appCtx) {
       norm = 1;
     for (PetscInt j = 0; j < 3; j++)
       appCtx->bcClampMax[i][3 + j] /= norm;
+
+    //Givens rotation vector
+    maxn = 4; //rotation in x,y,z plus angle of rotation
+    snprintf(optionName, sizeof optionName, "-bc_clamp_%d_givens",
+             appCtx->bcClampFaces[i]);
+    ierr = PetscOptionsScalarArray(optionName,
+                                   "Vector with axis of givens rotation, in radians",
+                                   NULL, &appCtx->bcClampMax[i][7], &maxn, NULL);
+    CHKERRQ(ierr);
   }
 
   // Neumann boundary conditions
