@@ -95,7 +95,8 @@ PetscErrorCode ProcessCommandLineOptions(MPI_Comm comm, AppCtx appCtx) {
   for (PetscInt i = 0; i < appCtx->bcClampCount; i++) {
     // Translation vector
     char optionName[25];
-    const size_t nclamp_params = sizeof(appCtx->bcClampMax[0])/sizeof(appCtx->bcClampMax[0][0]);
+    const size_t nclamp_params = sizeof(appCtx->bcClampMax[0])/sizeof(
+                                   appCtx->bcClampMax[0][0]);
     for (PetscInt j = 0; j < nclamp_params; j++)
       appCtx->bcClampMax[i][j] = 0.;
 
