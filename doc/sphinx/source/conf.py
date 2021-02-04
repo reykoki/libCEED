@@ -41,8 +41,7 @@ from sphinxcontrib import katex
 extensions = [
     'breathe',
     'hoverxref.extension',
-    'recommonmark',
-    'sphinx_markdown_tables',
+    'myst_nb',
     'sphinx_rtd_theme',
     'sphinx.ext.autodoc',
     'sphinx.ext.coverage',
@@ -64,14 +63,6 @@ numfig = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
-
-# The suffix(es) of source filenames.
-# You can specify multiple suffix as a list of string:
-#
-# source_suffix = ['.rst', '.md']
-source_suffix = {
-    '.rst': 'restructuredtext',
-    '.md': 'markdown'}
 
 # The master toctree document.
 master_doc = 'index'
@@ -120,6 +111,17 @@ todo_include_todos = True
 bibtex_bibfiles = [
     'references.bib',
 ]
+
+myst_enable_extensions = [
+    'deflist',
+    'dollarmath',
+    'html_image',
+    'linkify',
+    'colon_fence',
+]
+
+myst_heading_anchors = 2
+myst_url_schemes = ("http", "https", "mailto")
 
 # -- Options for HTML output ----------------------------------------------
 
